@@ -1,5 +1,5 @@
-import bcrypt
-import hashlib
+# import bcrypt
+# import hashlib
 
 # '''
 # Linked List hash table key/value pair
@@ -18,16 +18,17 @@ class HashTable:
     def __init__(self, capacity):
         self.capacity = capacity  # Number of buckets in the hash table
         self.storage = [None] * capacity
+        # print(self.storage)
 
 
     def _hash(self, key):
+
         '''
         Hash an arbitrary key and return an integer.
 
         You may replace the Python hash with DJB2 as a stretch goal.
         '''
         return hash(key)
-
 
     def _hash_djb2(self, key):
         '''
@@ -47,6 +48,7 @@ class HashTable:
 
 
     def insert(self, key, value):
+        
         '''
         Store the value with the given key.
 
@@ -54,7 +56,7 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        self.storage[self._hash_mod(key)] = LinkedPair(key, value)
 
 
 
@@ -66,7 +68,10 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        if self.storage[self._hash_mod(key)] == None:
+            print("warning")
+        else:
+            self.storage[self._hash_mod(key)] = None
 
 
     def retrieve(self, key):
@@ -77,7 +82,7 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        return self.storage[self._hash_mod(key)].value
 
 
     def resize(self):
@@ -87,7 +92,12 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        self.capacity *= 2
+        new_storage = [None] * self.capacity
+        for x in [i for i in self.storage if i != None]:
+            new_storage[self._hash_mod(x.key)] = LinkedPair(x.key, x.value)
+        
+        self.storage = new_storage
 
 
 
