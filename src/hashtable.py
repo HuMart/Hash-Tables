@@ -82,7 +82,7 @@ class HashTable:
 
         Fill this in.
         '''
-        return self.storage[self._hash_mod(key)].value
+        return self.storage[self._hash_mod(key)]
 
 
     def resize(self):
