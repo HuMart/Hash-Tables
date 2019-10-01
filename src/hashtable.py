@@ -38,12 +38,18 @@ class HashTable:
         return hash(key)
 
     def _hash_djb2(self, key):
+        # hash_value = 5381
+        # for char in key:
+        #     hash_value = (( hash_value << 5) + hash_value) + ord(char)
+
+        # return hash_value % self.capacity
         '''
         Hash an arbitrary key using DJB2 hash
 
         OPTIONAL STRETCH: Research and implement DJB2
         '''
         pass
+        
 
 
     def _hash_mod(self, key):
