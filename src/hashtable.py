@@ -18,6 +18,7 @@ class HashTable:
     def __init__(self, capacity):
         self.capacity = capacity  # Number of buckets in the hash table
         self.storage = [None] * capacity
+        # self.count = 0
         
 
 
@@ -28,21 +29,16 @@ class HashTable:
 
         You may replace the Python hash with DJB2 as a stretch goal.
         '''
-        def hash(key) :
-            hash_value = 0
-            for char in key:
-                hash_value += ord(char)
+        # def hash(key) :
+        #     hash_value = 0
+        #     for char in key:
+        #         hash_value += ord(char)
             
-            return hash_value
+        #     return hash_value
 
         return hash(key)
 
     def _hash_djb2(self, key):
-        # hash_value = 5381
-        # for char in key:
-        #     hash_value = (( hash_value << 5) + hash_value) + ord(char)
-
-        # return hash_value % self.capacity
         '''
         Hash an arbitrary key using DJB2 hash
 
@@ -69,7 +65,11 @@ class HashTable:
         Hash collisions should be handled with Linked List Chaining.
 
         Fill this in.
+
         '''
+        # if self.count >= self.capacity:
+        #     self.resize()
+
         index = self._hash_mod(key)
         if self.storage[index] == None:
             self.storage[index] = LinkedPair(key, value)
@@ -82,7 +82,9 @@ class HashTable:
                 pair.value = value
             else:
                 pair.next = LinkedPair(key, value)
-        # self.storage[self._hash_mod(key)] = LinkedPair(key, value)
+        
+        # self.count += 1
+        
 
 
 
@@ -111,6 +113,8 @@ class HashTable:
             
             else:
                 prev_pair.next = pair.next
+
+        # self.count -= 1
                 
 
     #     if self.storage[self._hash_mod(key)] == None:
